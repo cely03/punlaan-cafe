@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Punlaan Cafe</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
+:root{
+  --brand:#f3961c;
+  --darkOverlay: rgba(0,0,0,0.45);
+  --glassBg: rgba(255,255,255,0.10);
+  --glassBorder: rgba(255,255,255,0.22);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+html, body{ height:100%; margin:0; }
+
+/* ===== BACKGROUND ===== */
+body{ overflow:hidden; position:relative; }
+body.menu-open{ overflow:auto; }
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("home.jpg") no-repeat center center;
+  background-size:cover;
+  filter:blur(18px);
+  transform:scale(1.1);
+  z-index:-2;
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:var(--darkOverlay);
+  z-index:-1;
+}
+
+/* ===== NAVBAR ===== */
+header{ position:absolute; top:0; width:100%; z-index:10; }
+.navbar{ display:flex; justify-content:space-between; align-items:center; padding:15px 20px; }
+.logo-text{ color:white; font-size:1.5rem; font-weight:700; text-shadow:0 3px 12px rgba(0,0,0,.6); }
+.logo-text span{ color:var(--brand); font-weight:900; }
+.nav-buttons button{
+  margin-left:10px; padding:8px 15px; background:var(--brand);
+  border:none; color:white; border-radius:20px; cursor:pointer;
+  transition:transform .2s ease, filter .2s ease;
+}
+.nav-buttons button:hover{ transform:translateY(-1px); filter:brightness(0.95); }
+
+/* ===== SLIDER ===== */
+.slider{ display:flex; width:300vw; transition:0.75s cubic-bezier(.2,.9,.2,1); will-change:transform; }
+.section{ width:100vw; }
+
+/* ===== HOME ===== */
+.home{
+  height:100vh; display:flex; justify-content:center; align-items:center;
+  text-align:center; position:relative; color:white; overflow:hidden;
+}
+.home::before{
+  content:""; position:absolute; inset:0;
+  background:url("home.jpg") no-repeat center center; background-size:cover;
+  filter:blur(8px); transform:scale(1.1); z-index:0;
+}
+.home::after{ content:""; position:absolute; inset:0; background:rgba(0,0,0,0.55); z-index:1; }
+.home-content{ position:relative; z-index:2; padding:0 16px; }
+.hero-badge{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 14px; border-radius:999px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  box-shadow:0 18px 45px rgba(0,0,0,0.25);
+  margin-bottom:18px;
+}
+.coffee-icon{ font-size:20px; animation:bob 1.6s ease-in-out infinite; }
+.hero-label{ font-weight:700; letter-spacing:1px; text-transform:uppercase; font-size:12px; opacity:.95; }
+.hero-title{
+  font-size:3rem;
+  background:linear-gradient(90deg,#ffffff,#f3961c);
+  background-clip:text; -webkit-background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+  text-shadow:0 8px 30px rgba(0,0,0,0.35);
+}
+.hero-underline{
+  width:120px; height:4px; border-radius:999px;
+  background:rgba(243,150,28,0.9);
+  margin:16px auto 10px;
+  box-shadow:0 10px 25px rgba(243,150,28,0.35);
+}
+.hero-sub{ margin-top:6px; font-size:1.05rem; opacity:0.92; letter-spacing:0.5px; }
+.about-btn{
+  margin-top:20px; padding:12px 25px; background:var(--brand);
+  border:none; border-radius:25px; color:white; cursor:pointer;
+  transition:transform .2s ease, filter .2s ease;
+}
+.about-btn:hover{ transform:translateY(-2px); filter:brightness(0.95); }
+@keyframes bob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+
+/* ===== ABOUT ===== */
+.about{ height:100vh; display:flex; justify-content:center; align-items:center; position:relative; padding:40px 18px; }
+.about-card{
+  background:var(--glassBg); backdrop-filter:blur(20px);
+  border:1px solid var(--glassBorder);
+  border-radius:25px; padding:40px; max-width:750px; color:white;
+  box-shadow:0 25px 60px rgba(0,0,0,0.5);
+}
+.about-card h2{ color:var(--brand); margin-bottom:20px; font-size:2.4rem; }
+.about-card p{ margin-bottom:12px; line-height:1.6; }
+.about-card strong{ color:var(--brand); }
+.about-back-btn{
+  position:absolute; top:20px; left:20px;
+  padding:10px 18px; background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  border-radius:22px; color:white; cursor:pointer; font-weight:700;
+  transition:transform .2s ease, filter .2s ease;
+}
+.about-back-btn:hover{ transform:translateY(-2px); filter:brightness(1.05); }
+
+/* ===== MENU PAGE ===== */
+.menu-page{ background:#f3efe3; padding:60px 40px 140px; min-height:100vh; position:relative; }
+.back-btn{
+  position:sticky; top:15px; display:inline-block;
+  padding:10px 18px; background:#3b141c; color:white;
+  border:none; border-radius:25px; cursor:pointer; z-index:5; margin-bottom:25px;
+}
+.menu-title{ font-size:110px; font-weight:900; }
+.menu-top{ display:flex; align-items:center; gap:15px; margin:10px 0 40px 0; font-size:14px; letter-spacing:2px; }
+.menu-line{ flex:1; height:2px; background:black; }
+.menu-grid{ display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:60px; }
+
+.menu-card{
+  background:rgba(255,255,255,0.65);
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:22px; padding:26px 24px;
+  box-shadow:0 16px 30px rgba(0,0,0,0.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+  backdrop-filter: blur(10px);
+}
+.menu-card:hover{ transform:translateY(-3px); box-shadow:0 22px 40px rgba(0,0,0,0.12); }
+
+.section-title{ font-size:34px; font-weight:900; margin:0 0 18px 0; letter-spacing:0.5px; }
+.title-icon{ margin-right:8px; }
+.menu-list{ display:flex; flex-direction:column; gap:10px; }
+
+.menu-item{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  font-size:16px; cursor:pointer; padding:10px 12px; border-radius:14px;
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.menu-item .price{ font-weight:800; color:#3b141c; white-space:nowrap; }
+.menu-item:hover{ background:rgba(243,150,28,0.12); transform:translateX(2px); }
+
+.add-mini{
+  border:none; background:#3b141c; color:white;
+  font-weight:900; padding:7px 10px; border-radius:12px;
+  cursor:pointer; white-space:nowrap;
+}
+.add-mini:hover{ filter:brightness(1.05); }
+
+.badge{
+  display:inline-flex; align-items:center; padding:4px 10px;
+  border-radius:999px; font-size:12px; font-weight:900;
+  background:rgba(243,150,28,0.18); color:#3b141c;
+  border:1px solid rgba(243,150,28,0.45); white-space:nowrap;
+}
+
+.matcha-section{
+  margin-top:20px; background:rgba(198,230,164,0.75);
+  backdrop-filter: blur(10px); border:1px solid rgba(0,0,0,0.06);
+  border-radius:22px; padding:26px 24px; box-shadow:0 16px 30px rgba(0,0,0,0.08);
+}
+.addons-section{
+  margin-top:22px; background:rgba(255,255,255,0.65);
+  backdrop-filter: blur(10px); border:1px solid rgba(0,0,0,0.06);
+  border-radius:22px; padding:26px 24px; box-shadow:0 16px 30px rgba(0,0,0,0.08);
+}
+
+/* ===== STICKY BAR (Recent Order + View Order) ===== */
+.order-bar{
+  position:fixed; left:0; right:0; bottom:0; z-index:90;
+  background:rgba(255,255,255,0.92);
+  border-top:1px solid rgba(0,0,0,0.08);
+  backdrop-filter: blur(10px);
+  padding:12px 14px;
+  display:none;
+}
+.order-bar-inner{
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+}
+.selected-pill{
+  flex:1; padding:10px 12px; border-radius:16px;
+  background:rgba(0,0,0,0.05);
+  font-size:13px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.bar-actions{ display:flex; gap:10px; }
+.btn{
+  border:none; cursor:pointer; border-radius:16px;
+  padding:10px 14px; font-weight:900;
+}
+.btn.view{ background:#3b141c; color:white; }
+.btn.recent{ background:rgba(0,0,0,0.06); color:#3b141c; border:1px solid rgba(0,0,0,0.10); }
+.btn.recent:disabled{ opacity:.55; cursor:not-allowed; }
+
+/* ===== MODAL (with SCROLL) ===== */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,0.55);
+  display:none; align-items:center; justify-content:center;
+  z-index:100; padding:18px;
+}
+.modal-overlay.show{ display:flex; }
+
+.modal{
+  width:min(900px, 100%);
+  max-height:92vh;
+  background:rgba(255,255,255,0.94);
+  border-radius:22px;
+  border:1px solid rgba(0,0,0,0.08);
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.modal-header{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+  padding:18px 18px 10px; background:rgba(243,150,28,0.10);
+  position:sticky; top:0; z-index:2;
+}
+.modal-header h3{ margin:0; font-size:20px; font-weight:900; color:#3b141c; }
+.modal-meta{ font-size:12px; opacity:0.75; margin-top:2px; }
+.modal-close{
+  border:none; background:rgba(0,0,0,0.06);
+  border-radius:12px; padding:8px 10px;
+  cursor:pointer; font-weight:900;
+}
+.modal-body{
+  padding:14px 18px 18px;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.section-block{
+  background:rgba(0,0,0,0.05);
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:14px;
+}
+.section-title-sm{
+  font-weight:900;
+  color:#3b141c;
+  margin-bottom:8px;
+}
+.small{ font-size:12px; opacity:.75; }
+
+.row-head, .row{
+  display:grid;
+  grid-template-columns: 1fr 60px 90px 90px;
+  gap:10px;
+  padding:10px 8px;
+  border-radius:12px;
+}
+.row-head{ font-weight:900; background:rgba(0,0,0,0.05); }
+.row.item{
+  background:rgba(255,255,255,0.7);
+  border:1px solid rgba(0,0,0,0.06);
+  cursor:pointer;
+}
+.total-row{
+  margin-top:6px; font-weight:900;
+  background:rgba(243,150,28,0.18);
+  border:1px solid rgba(243,150,28,0.35);
+}
+
+/* Today's orders list */
+.order-card{
+  background:rgba(255,255,255,0.78);
+  border:1px solid rgba(0,0,0,0.08);
+  border-radius:14px;
+  padding:12px;
+  margin-top:10px;
+}
+.order-card-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.order-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(243,150,28,0.16);
+  border:1px solid rgba(243,150,28,0.35);
+  font-weight:900;
+  color:#3b141c;
+  font-size:12px;
+}
+.order-total{
+  font-weight:900;
+  color:#3b141c;
+}
+.items-mini{
+  font-size:13px;
+  opacity:.9;
+  line-height:1.5;
+}
+.items-mini b{ color:#3b141c; }
+
+.checkout-grid{
+  margin-top:14px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field label{ font-size:12px; font-weight:900; color:#3b141c; }
+.field input, .field select, .field textarea{
+  border:1px solid rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.85);
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:14px;
+  outline:none;
+}
+.field textarea{ min-height:90px; resize:vertical; }
+.field input:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+}
+.span-2{ grid-column:1 / -1; }
+
+.modal-actions{
+  display:flex; justify-content:flex-end; gap:10px;
+  padding:14px 18px 18px;
+  border-top:1px solid rgba(0,0,0,0.08);
+  background:rgba(255,255,255,0.85);
+  position:sticky; bottom:0; z-index:2;
+}
+.action-btn{
+  padding:10px 14px; border:none; border-radius:14px;
+  cursor:pointer; font-weight:900;
+}
+.action-btn.ghost{ background:rgba(0,0,0,0.06); color:#3b141c; }
+.action-btn.dark{ background:#3b141c; color:white; }
+.action-btn:disabled{ opacity:.55; cursor:not-allowed; }
+
+.toast{
+  position:fixed; left:50%; bottom:140px; transform:translateX(-50%);
+  background:#3b141c; color:white; padding:12px 14px;
+  border-radius:14px; box-shadow:0 18px 40px rgba(0,0,0,0.25);
+  z-index:120; display:none; font-weight:900;
+}
+.toast.show{ display:block; }
+
+@media(max-width:900px){
+  .hero-title{ font-size:2.25rem; }
+  .menu-title{ font-size:70px; }
+  .about-card{ padding:28px; }
+  .menu-grid{ grid-template-columns:1fr; }
+  .menu-page{ padding:50px 18px 160px; }
+  .section-title{ font-size:28px; }
+  .checkout-grid{ grid-template-columns:1fr; }
+  .span-2{ grid-column:auto; }
+}
+</style>
+</head>
+
+<body>
+
+<header id="mainHeader">
+  <nav class="navbar">
+    <h2 class="logo-text">Welcome to <span>Punlaan Cafe</span></h2>
+    <div class="nav-buttons">
+      <button onclick="goAbout()">About Us</button>
+    </div>
+  </nav>
+</header>
+
+<div class="slider" id="slider">
+
+  <!-- HOME -->
+  <section class="section home">
+    <div class="home-content">
+      <div class="hero-badge">
+        <div class="coffee-icon">☕</div>
+        <div class="hero-label">Payatas’ Best Coffee Spot</div>
+      </div>
+      <h1 class="hero-title">Parating may kwento ang kape</h1>
+      <div class="hero-underline"></div>
+      <p class="hero-sub">Tambay lang sa tabi  bawat higop may plot twist ✨</p>
+      <button class="about-btn" onclick="goOrder()">Order Now</button>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about">
+    <button class="about-back-btn" onclick="goHome()">← Back</button>
+    <div class="about-card">
+      <h2>About Us</h2>
+      <p><strong>Intro:</strong><br>
+        Tambay lang sa tabi, higop ng kape, at damhin ang chill ng kalsada.
+        Parating may kwento ang kape.
+      </p>
+      <p><strong>Category:</strong> Coffee Shop</p>
+      <p><strong>Details / Address:</strong><br>
+        065 Ilang Ilang St. Barangay Payatas, Quezon City, Philippines, 1119
+      </p>
+      <p><strong>Founding Date:</strong> March 18, 2025</p>
+      <p><strong>Contact Info:</strong><br>
+        Phone: 0956 406 0611<br>
+        Messenger: Punlaan Cafe
+      </p>
+    </div>
+  </section>
+
+  <!-- MENU / ORDER -->
+  <section class="section menu-page">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+
+    <div class="menu-title">PUNLAAN CAFE</div>
+
+    <div class="menu-top">
+      <span>PREMIUM COFFEE</span>
+      <div class="menu-line"></div>
+      <span>PAYATAS’ BEST</span>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- LEFT CARD -->
+      <div class="menu-card">
+        <div class="section-title"><span class="title-icon">☕</span>SIGNATURE</div>
+        <div class="menu-list">
+          <div class="menu-item" data-price="150"><span>PUNLAAN</span><span class="price">₱150</span><span class="badge">Best Seller</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="150"><span>SALTED CARAMEL ICED SHAKEN ESPRESSO</span><span class="price">₱150</span><span class="badge">Best Seller</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="150"><span>SEA SALT CREAM CAFE LATTE</span><span class="price">₱150</span><span class="badge">Best Seller</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="150"><span>VANILLA SWEET CREAM COLD BREW</span><span class="price">₱150</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="150"><span>HONEY OAT LATTE</span><span class="price">₱150</span><button class="add-mini" data-add>+ Add</button></div>
+        </div>
+
+        <div class="section-title" style="margin-top:22px;"><span class="title-icon">☕</span>ESPRESSO</div>
+        <div class="menu-list">
+          <div class="menu-item" data-price="100"><span>AMERICANO</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="100"><span>ESPRESSO</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="110"><span>CAFE LATTE</span><span class="price">₱110</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="110"><span>CAPPUCINO</span><span class="price">₱110</span><button class="add-mini" data-add>+ Add</button></div>
+        </div>
+
+        <div class="menu-list" style="margin-top:14px;">
+          <div class="menu-item" data-price="120"><span>SPANISH LATTE</span><span class="price">₱120</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="140"><span>SALTED CARAMEL</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="140"><span>WHITE MOCHA</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="140"><span>DARK MOCHA</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="150"><span>VANILLA CAFE LATTE</span><span class="price">₱150</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="140"><span>VANILLA AMERICANO</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+        </div>
+      </div>
+
+      <!-- RIGHT CARD -->
+      <div class="menu-card">
+        <div class="section-title"><span class="title-icon">🧊</span>COLD BREW</div>
+        <div class="menu-list">
+          <div class="menu-item" data-price="100"><span>CLASSIC COLD BREW</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="120"><span>VANILLA COLD BREW</span><span class="price">₱120</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="110"><span>CAFE CON LECHE</span><span class="price">₱110</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="110"><span>SWEET BARAKO</span><span class="price">₱110</span><button class="add-mini" data-add>+ Add</button></div>
+        </div>
+
+        <div class="section-title" style="margin-top:22px;"><span class="title-icon">🍫</span>NON-COFFEE</div>
+        <div class="menu-list">
+          <div class="menu-item" data-price="120"><span>ICHIGO (STRAWBERRY)</span><span class="price">₱120</span><button class="add-mini" data-add>+ Add</button></div>
+          <div class="menu-item" data-price="100"><span>DARK CHOCOLATE</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATCHA -->
+    <div class="matcha-section">
+      <div class="section-title"><span class="title-icon">🍵</span>MATCHA</div>
+      <div class="menu-grid" style="margin:0; gap:18px;">
+        <div class="menu-card" style="background:rgba(255,255,255,0.55);">
+          <div class="menu-list">
+            <div class="menu-item" data-price="100"><span>MATCHA LATTE</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="140"><span>MATCHA LATTE WITH SEA SALT CREAM</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="140"><span>MATCHA ICHIGO (STRAWBERRY)</span><span class="price">₱140</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="120"><span>WHITE CHOCOLATE MATCHA</span><span class="price">₱120</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="100"><span>MATCHA TONIC</span><span class="price">₱100</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="80"><span>MATCHA</span><span class="price">₱80</span><button class="add-mini" data-add>+ Add</button></div>
+          </div>
+        </div>
+
+        <div class="menu-card" style="background:rgba(255,255,255,0.55);">
+          <div class="section-title">LEVEL</div>
+          <div class="menu-list">
+            <div class="menu-item" data-price="0"><span>NORMAL</span><span class="price">₱0</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="10"><span>STRONG (+1G)</span><span class="price">+₱10</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="15"><span>EXTRA STRONG (+2G)</span><span class="price">+₱15</span><button class="add-mini" data-add>+ Add</button></div>
+            <div class="menu-item" data-price="0"><span>LESS</span><span class="price">₱0</span><button class="add-mini" data-add>+ Add</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD ONS -->
+    <div class="addons-section">
+      <div class="section-title"><span class="title-icon">➕</span>ADD ONS</div>
+      <div class="menu-list">
+        <div class="menu-item" data-price="30" data-addon="1"><span>OAT MILK</span><span class="price">+₱30</span><button class="add-mini" data-add>+ Add</button></div>
+        <div class="menu-item" data-price="40" data-addon="1"><span>VANILLA SYRUP</span><span class="price">+₱40</span><button class="add-mini" data-add>+ Add</button></div>
+        <div class="menu-item" data-price="40" data-addon="1"><span>SWEET CREAM</span><span class="price">+₱40</span><button class="add-mini" data-add>+ Add</button></div>
+        <div class="menu-item" data-price="40" data-addon="1"><span>SEA SALT CREAM</span><span class="price">+₱40</span><button class="add-mini" data-add>+ Add</button></div>
+        <div class="menu-item" data-price="55" data-addon="1"><span>EXTRA SHOT</span><span class="price">+₱55</span><button class="add-mini" data-add>+ Add</button></div>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+<!-- Sticky bar -->
+<div class="order-bar" id="orderBar">
+  <div class="order-bar-inner">
+    <div class="selected-pill" id="selectedInfo">Tip: click “+ Add” to add items. Use “View Order” to checkout.</div>
+    <div class="bar-actions">
+      <button class="btn recent" id="recentOrderBtn" disabled>Recent Order</button>
+      <button class="btn view" id="viewOrderBtn">View Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+    <div class="modal-header">
+      <div>
+        <h3 id="orderTitle">Orders</h3>
+        <div class="modal-meta" id="modalMeta"></div>
+      </div>
+      <button class="modal-close" id="closeModalBtn">✕</button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Today's Orders (Inventory) -->
+      <div id="todayOrdersSection" class="section-block" style="display:none;">
+        <div class="section-title-sm">Today’s Orders (Inventory)</div>
+        <div class="small" id="todaySummary"></div>
+        <div id="todayOrdersList"></div>
+      </div>
+
+      <!-- Current Order (Cart + Checkout) -->
+      <div id="currentOrderSection" style="display:none;">
+        <div class="row-head">
+          <span>Item</span><span>Qty</span><span>Price</span><span>Line</span>
+        </div>
+        <div id="cartRows"></div>
+
+        <div style="margin-top:10px;">
+          <div class="row"><span>Subtotal</span><span></span><span></span><span id="subVal">₱0</span></div>
+          <div class="row"><span>Add-ons</span><span></span><span></span><span id="addonVal">₱0</span></div>
+          <div class="row total-row"><span>Total</span><span></span><span></span><span id="totVal">₱0</span></div>
+        </div>
+
+        <div style="margin-top:14px; font-weight:900; color:#3b141c;">Checkout</div>
+        <div class="checkout-grid">
+          <div class="field">
+            <label>Full Name</label>
+            <input id="custName" type="text" placeholder="Juan Dela Cruz" />
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input id="custPhone" type="tel" placeholder="09xx xxx xxxx" />
+          </div>
+
+          <div class="field">
+            <label>Order Type</label>
+            <select id="orderType">
+              <option value="Delivery" selected>Delivery</option>
+              <option value="Pickup">Pickup</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Payment Method</label>
+            <select id="paymentMethod">
+              <option value="Cash on Delivery (COD)" selected>Cash on Delivery (COD)</option>
+              <option value="GCash">GCash</option>
+              <option value="Cash (Pickup)">Cash (Pickup)</option>
+            </select>
+          </div>
+
+          <div class="field span-2" id="addressField">
+            <label>Delivery Address</label>
+            <textarea id="custAddress" placeholder="Complete address (Street, Barangay, City)"></textarea>
+          </div>
+
+          <div class="field span-2">
+            <label>Notes (optional)</label>
+            <textarea id="custNotes" placeholder="e.g. less ice, extra sweet, landmark, etc."></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:10px; font-size:12px; opacity:.75;">
+          Tip: Click an item row to remove 1 qty.
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions" id="modalActions">
+      <button class="action-btn ghost" id="clearBtn">Clear</button>
+      <button class="action-btn dark" id="placeOrderBtn" disabled>Place Order</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Added ✅</div>
+
+<script>
+const slider = document.getElementById("slider");
+const mainHeader = document.getElementById("mainHeader");
+const orderBar = document.getElementById("orderBar");
+
+function goHome(){
+  slider.style.transform = "translateX(0)";
+  document.body.classList.remove("menu-open");
+  mainHeader.style.display = "block";
+  orderBar.style.display = "none";
+  window.scrollTo(0,0);
+}
+function goAbout(){
+  slider.style.transform = "translateX(-100vw)";
+  document.body.classList.remove("menu-open");
+  mainHeader.style.display = "none";
+  orderBar.style.display = "none";
+  window.scrollTo(0,0);
+}
+function goOrder(){
+  slider.style.transform = "translateX(-200vw)";
+  document.body.classList.add("menu-open");
+  mainHeader.style.display = "none";
+  orderBar.style.display = "block";
+  window.scrollTo(0,0);
+}
+
+/* ===== STATE ===== */
+const cart = new Map(); // key => { price, qty, type }
+const ORDERS_KEY = "punlaan_orders_v1";
+
+const selectedInfo = document.getElementById("selectedInfo");
+const recentOrderBtn = document.getElementById("recentOrderBtn");
+const viewOrderBtn = document.getElementById("viewOrderBtn");
+
+const modalOverlay = document.getElementById("modalOverlay");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const modalMeta = document.getElementById("modalMeta");
+const modalActions = document.getElementById("modalActions");
+
+const todayOrdersSection = document.getElementById("todayOrdersSection");
+const todayOrdersList = document.getElementById("todayOrdersList");
+const todaySummary = document.getElementById("todaySummary");
+
+const currentOrderSection = document.getElementById("currentOrderSection");
+const cartRows = document.getElementById("cartRows");
+const subVal = document.getElementById("subVal");
+const addonVal = document.getElementById("addonVal");
+const totVal = document.getElementById("totVal");
+
+const clearBtn = document.getElementById("clearBtn");
+const placeOrderBtn = document.getElementById("placeOrderBtn");
+
+const custName = document.getElementById("custName");
+const custPhone = document.getElementById("custPhone");
+const orderType = document.getElementById("orderType");
+const paymentMethod = document.getElementById("paymentMethod");
+const addressField = document.getElementById("addressField");
+const custAddress = document.getElementById("custAddress");
+const custNotes = document.getElementById("custNotes");
+
+const toast = document.getElementById("toast");
+let toastTimer = null;
+let modalMode = "current"; // "current" | "today"
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>toast.classList.remove("show"), 1100);
+}
+function peso(n){ return "₱" + n.toFixed(0); }
+function escapeHtml(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+/* ===== ORDERS STORAGE ===== */
+function loadAllOrders(){
+  try{
+    const raw = localStorage.getItem(ORDERS_KEY);
+    if(!raw) return [];
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  }catch{
+    return [];
+  }
+}
+function saveAllOrders(orders){
+  localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+}
+function getTodayKey(d = new Date()){
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
+function getTodayOrders(){
+  const all = loadAllOrders();
+  const today = getTodayKey();
+  return all.filter(o => o && o.dayKey === today);
+}
+function updateRecentButtonState(){
+  const todays = getTodayOrders();
+  recentOrderBtn.disabled = (todays.length === 0);
+  recentOrderBtn.textContent = todays.length ? `Recent Order (${todays.length})` : "Recent Order";
+}
+
+/* ===== CURRENT ORDER RENDER ===== */
+function computeTotals(){
+  let sub = 0, addons = 0;
+  cart.forEach(v=>{
+    const line = v.price * v.qty;
+    if(v.type === "addon") addons += line;
+    else sub += line;
+  });
+  subVal.textContent = peso(sub);
+  addonVal.textContent = peso(addons);
+  totVal.textContent = peso(sub + addons);
+  placeOrderBtn.disabled = (cart.size === 0);
+  return { sub, addons, total: sub + addons };
+}
+
+function renderCurrentOrder(){
+  cartRows.innerHTML = "";
+  if(cart.size === 0){
+    cartRows.innerHTML = `<div style="padding:14px 8px; opacity:.75;">No items yet. Click “+ Add” to add items.</div>`;
+    computeTotals();
+    return;
+  }
+
+  cart.forEach((v, name)=>{
+    const line = v.price * v.qty;
+    const row = document.createElement("div");
+    row.className = "row item";
+    row.title = "Click to remove 1 qty";
+    row.innerHTML = `
+      <span>${escapeHtml(name)}${v.type==="addon" ? ' <span style="font-size:12px; opacity:.7;">(Add-on)</span>' : ""}</span>
+      <span>${v.qty}</span>
+      <span>${peso(v.price)}</span>
+      <span style="font-weight:900;">${peso(line)}</span>
+    `;
+    row.addEventListener("click", ()=>{
+      const curr = cart.get(name);
+      if(!curr) return;
+      curr.qty -= 1;
+      if(curr.qty <= 0) cart.delete(name);
+      renderCurrentOrder();
+    });
+    cartRows.appendChild(row);
+  });
+
+  computeTotals();
+}
+
+/* ===== TODAY ORDERS (INVENTORY VIEW) ===== */
+function renderTodayOrders(){
+  const todays = getTodayOrders();
+  const todayKey = getTodayKey();
+  todayOrdersList.innerHTML = "";
+
+  if(!todays.length){
+    todaySummary.textContent = `No orders today (${todayKey}).`;
+    todayOrdersList.innerHTML = `<div class="small">Wala pang na-place na order ngayong araw.</div>`;
+    return;
+  }
+
+  let grandTotal = 0;
+  let countItems = 0;
+
+  todays.forEach(order => {
+    grandTotal += Number(order?.totals?.total || 0);
+    (order.items || []).forEach(it => { countItems += Number(it.qty || 0); });
+
+    const itemsLine = (order.items || [])
+      .map(it => `${escapeHtml(it.name)} x${it.qty}`)
+      .join(", ");
+
+    const card = document.createElement("div");
+    card.className = "order-card";
+    card.innerHTML = `
+      <div class="order-card-top">
+        <span class="order-pill">Order ID: ${escapeHtml(order.orderId)}</span>
+        <span class="order-pill">${escapeHtml(order.time)}</span>
+        <span class="order-total">Total: ${peso(Number(order.totals.total || 0))}</span>
+      </div>
+      <div class="items-mini">
+        <div><b>Name:</b> ${escapeHtml(order.customer.name || "")} • <b>Phone:</b> ${escapeHtml(order.customer.phone || "")}</div>
+        <div><b>Type:</b> ${escapeHtml(order.customer.orderType || "")} • <b>Payment:</b> ${escapeHtml(order.customer.payment || "")}</div>
+        ${order.customer.address ? `<div><b>Address:</b> ${escapeHtml(order.customer.address)}</div>` : ""}
+        ${order.customer.notes ? `<div><b>Notes:</b> ${escapeHtml(order.customer.notes)}</div>` : ""}
+        <div style="margin-top:6px;"><b>Items:</b> ${itemsLine || "-"}</div>
+      </div>
+    `;
+    todayOrdersList.appendChild(card);
+  });
+
+  todaySummary.textContent = `Date: ${todayKey} • Orders: ${todays.length} • Items: ${countItems} • Sales: ${peso(grandTotal)}`;
+}
+
+/* ===== MODAL MODE SWITCH ===== */
+function setModalMode(mode){
+  modalMode = mode;
+
+  if(mode === "today"){
+    todayOrdersSection.style.display = "block";
+    currentOrderSection.style.display = "none";
+    modalActions.style.display = "none";
+    document.getElementById("orderTitle").textContent = "Today’s Orders";
+    renderTodayOrders();
+  }else{
+    todayOrdersSection.style.display = "none";
+    currentOrderSection.style.display = "block";
+    modalActions.style.display = "flex";
+    document.getElementById("orderTitle").textContent = "Your Order";
+    renderCurrentOrder();
+  }
+}
+
+/* ===== MODAL OPEN/CLOSE ===== */
+function openModal(mode){
+  setModalMode(mode);
+  modalMeta.textContent = "Opened: " + new Date().toLocaleString();
+  modalOverlay.classList.add("show");
+  const body = modalOverlay.querySelector(".modal-body");
+  if(body) body.scrollTop = 0;
+}
+function closeModal(){ modalOverlay.classList.remove("show"); }
+
+viewOrderBtn.addEventListener("click", ()=>openModal("current"));
+recentOrderBtn.addEventListener("click", ()=>openModal("today"));
+closeModalBtn.addEventListener("click", closeModal);
+modalOverlay.addEventListener("click", (e)=>{ if(e.target === modalOverlay) closeModal(); });
+
+/* Address show/hide */
+function syncAddressVisibility(){
+  addressField.style.display = (orderType.value === "Delivery") ? "flex" : "none";
+}
+
+/* ✅ Pickup rule: phone disabled + not required */
+function syncPickupRules(){
+  const isPickup = (orderType.value === "Pickup");
+  custPhone.disabled = isPickup;
+
+  if(isPickup){
+    custPhone.value = "";
+    custPhone.placeholder = "Not required for Pickup";
+  }else{
+    custPhone.placeholder = "09xx xxx xxxx";
+  }
+}
+
+/* listen to orderType changes */
+orderType.addEventListener("change", ()=>{
+  syncAddressVisibility();
+  syncPickupRules();
+});
+syncAddressVisibility();
+syncPickupRules();
+
+/* ===== Add via "+ Add" only ===== */
+document.querySelectorAll("[data-add]").forEach(btn=>{
+  btn.addEventListener("click", (e)=>{
+    e.stopPropagation();
+    const item = btn.closest(".menu-item");
+    if(!item) return;
+
+    const name = item.querySelector("span")?.textContent?.trim() || "Item";
+    const price = Number(item.getAttribute("data-price") || "0");
+    const type = item.hasAttribute("data-addon") ? "addon" : "item";
+
+    if(!cart.has(name)) cart.set(name, { price, qty:1, type });
+    else cart.get(name).qty += 1;
+
+    selectedInfo.textContent = `Added: ${name} • ${peso(price)}`;
+    showToast("Added ✅");
+
+    if(modalOverlay.classList.contains("show") && modalMode === "current"){
+      renderCurrentOrder();
+    }
+  });
+});
+
+/* ===== Clear current cart ===== */
+clearBtn.addEventListener("click", ()=>{
+  cart.clear();
+  renderCurrentOrder();
+  showToast("Cleared 🧹");
+});
+
+/* ===== Place Order (Saves to Today Orders) ===== */
+function makeOrderId(){
+  const now = new Date();
+  const y = String(now.getFullYear()).slice(-2);
+  const m = String(now.getMonth()+1).padStart(2,"0");
+  const d = String(now.getDate()).padStart(2,"0");
+  const r = Math.floor(Math.random()*9000)+1000;
+  return `PC-${y}${m}${d}-${r}`;
+}
+
+placeOrderBtn.addEventListener("click", ()=>{
+  const name = custName.value.trim();
+  const phone = custPhone.value.trim();
+  const isDelivery = (orderType.value === "Delivery");
+  const address = custAddress.value.trim();
+
+  if(cart.size === 0){ showToast("Add items first"); return; }
+  if(!name){ showToast("Enter name"); custName.focus(); return; }
+
+  // ✅ phone required ONLY for Delivery
+  if(isDelivery && !phone){
+    showToast("Enter phone");
+    custPhone.focus();
+    return;
+  }
+
+  if(isDelivery && !address){ showToast("Enter address"); custAddress.focus(); return; }
+
+  // totals + items
+  let subtotal = 0, addons = 0;
+  const items = [];
+  cart.forEach((v, k)=>{
+    const line = v.price * v.qty;
+    if(v.type === "addon") addons += line;
+    else subtotal += line;
+    items.push({ name:k, price:v.price, qty:v.qty, type:v.type });
+  });
+  const total = subtotal + addons;
+
+  const now = new Date();
+  const dayKey = getTodayKey(now);
+  const time = now.toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" });
+  const dateTime = now.toLocaleString();
+  const orderId = makeOrderId();
+  const pm = paymentMethod.value;
+  const notes = custNotes.value.trim();
+
+  const orderData = {
+    orderId,
+    dayKey,
+    time,
+    dateTime,
+    items,
+    totals: { subtotal, addons, total },
+    customer: {
+      name,
+      phone: isDelivery ? phone : "",     // ✅ store phone only if delivery
+      orderType: orderType.value,
+      payment: pm,
+      address: isDelivery ? address : "",
+      notes
+    }
+  };
+
+  const all = loadAllOrders();
+  all.push(orderData);
+  saveAllOrders(all);
+
+  updateRecentButtonState();
+
+  modalMeta.textContent = `Saved: ${orderId} • ${orderType.value} • ${pm} • ${dateTime}`;
+  showToast("Order saved ✅");
+
+  // clear cart
+  cart.clear();
+  renderCurrentOrder();
+
+  // ✅ CLEAR FORM DETAILS (para walang maiiwan sa new receipt / new order)
+  custName.value = "";
+  custPhone.value = "";
+  custAddress.value = "";
+  custNotes.value = "";
+  orderType.value = "Delivery";
+  paymentMethod.value = "Cash on Delivery (COD)";
+  syncAddressVisibility();
+  syncPickupRules();
+
+  // ✅ reset bottom bar message
+  selectedInfo.textContent = 'Tip: click “+ Add” to add items. Use “View Order” to checkout.';
+});
+
+/* init */
+updateRecentButtonState();
+renderCurrentOrder();
+</script>
+
+</body>
+</html>
